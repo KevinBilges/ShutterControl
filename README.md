@@ -1,2 +1,2 @@
 # ShutterControl
-Arduino schuter control
+Arduino shuter control
