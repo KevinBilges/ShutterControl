@@ -1,0 +1,24 @@
+## Syntax Coloring Map For Shutter ##
+
+##
+## Datatypes (KEYWORD1)
+Shutter	KEYWORD1
+ShutterButton	KEYWORD1
+ShutterState	KEYWORD1
+
+##
+## Instance Methods and Functions (KEYWORD2) ##
+Idle	KEYWORD2
+Up	KEYWORD2
+Down	KEYWORD2
+GetState	KEYWORD2
+GetSignalUp	KEYWORD2
+GetSignalDown	KEYWORD2
+GetChannelUp	KEYWORD2
+GetChannelDown	KEYWORD2
+GetSignal	KEYWORD2
+GetChannel	KEYWORD2
+Release	KEYWORD2
+
+##
+## Const/Defs (LITERAL1)
