@@ -1,5 +1,5 @@
 /*
-  Multiplexer.h - Library for Shutter.
+  Shutter.h - Library for Shutter.
   September 15, 2019.
   MIT
 */
@@ -7,7 +7,7 @@
 #include "Shutter.h"
 #include "Arduino.h"
 
-Shutter::Shutter(int channelUp, int channelDown);
+Shutter::Shutter(int channelUp, int channelDown)
 {
   _channelUp = channelUp;
   _channelDown = channelDown;
@@ -37,20 +37,20 @@ ShutterState Shutter::GetState()
 {
 	if(_signalUp && !_signalDown)
 	{
-		return ShutterState.Up;
+		return ShutterState::Up;
 	}
 	
 	if(!_signalUp && _signalDown)
 	{
-		return ShutterState.Down;
+		return ShutterState::Down;
 	}
 	
 	if(!_signalUp && !_signalDown)
 	{
-		return ShutterState.Idle;
+		return ShutterState::Idle;
 	}
 	
-	return ShutterState.Unkown;
+	return ShutterState::Unkown;
 }
 
 bool Shutter::GetSignalUp()
@@ -70,5 +70,5 @@ bool Shutter::GetChannelUp()
 
 bool Shutter::GetChannelDown()
 {
-	return __channelDown;
+	return _channelDown;
 }

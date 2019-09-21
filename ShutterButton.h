@@ -1,5 +1,5 @@
 /*
-  Multiplexer.h - Library for Jalousie.
+  ShutterButton.h - Library for ShutterButton.
   September 15, 2019.
   MIT
 */
@@ -18,6 +18,7 @@ class ShutterButton
 	void Release();
   private:
   	int _channel;
+	bool _signal;
 	bool _signalOld;
 	
 	bool _activateSelfHolding;

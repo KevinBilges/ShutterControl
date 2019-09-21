@@ -1,18 +1,19 @@
 /*
-  Multiplexer.h - Library for Jalousie.
+  ShutterButton.h - Library for ShutterButton.
   September 15, 2019.
   MIT
 */
 
-#include "Jalousie.h"
+#include "ShutterButton.h"
 #include "Arduino.h"
 
-ShutterButton::ShutterButton(int channel,bool selfHoldingEnable = true, long millSecHolding = 30000);
+ShutterButton::ShutterButton(int channel,bool selfHoldingEnable = true, long millSecHolding = 30000)
 {
   _channel = channel;
   _signal = false;
+  _signalOld = false;
   _selfHoldingActive = false;
-  _counterFirstHit = 0;
+  _millSecFirstHit = 0;
   
   _activateSelfHolding = true;
   
@@ -23,7 +24,7 @@ ShutterButton::ShutterButton(int channel,bool selfHoldingEnable = true, long mil
 
 bool ShutterButton::GetSignal()
 {
-	_millSecLastStamp = mills();
+	_millSecLastStamp = millis();
 	
 	if(_selfHoldingActive)
 	{

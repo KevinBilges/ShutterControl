@@ -1,5 +1,5 @@
 /*
-  Multiplexer.h - Library for Shutter.
+  Shutter.h - Library for Shutter.
   September 15, 2019.
   MIT
 */
@@ -15,7 +15,7 @@ enum ShutterState
 	Idle,
 	Up,
 	Down
-}
+};
 
 class Shutter
 {
