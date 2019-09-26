@@ -6,9 +6,12 @@
 
 #include "ShutterButton.h"
 #include "Arduino.h"
+#include <CD74HC4067.h>
 
-ShutterButton::ShutterButton(int channel,bool selfHoldingEnable = true, long millSecHolding = 30000)
+ShutterButton::ShutterButton(int pinIn, CD74HC4067& mux,int channel,bool selfHoldingEnable, long millSecActivateHolding, long millSecHolding)
 {
+	_pinIn = pinIn;
+	_mux = mux;
   _channel = channel;
   _signal = false;
   _signalOld = false;
@@ -18,8 +21,8 @@ ShutterButton::ShutterButton(int channel,bool selfHoldingEnable = true, long mil
   _activateSelfHolding = true;
   
   _millSecLastStamp;
-  _millSecFirstHit;
-  _millSecHolding;	
+  _millSecHolding = millSecHolding;	
+  _millSecActivateHolding = millSecActivateHolding;
 }
 
 bool ShutterButton::GetSignal()
@@ -38,7 +41,37 @@ bool ShutterButton::GetSignal()
 		}
 	}
 	
+	int val = GetActualSignal();
+		
+	if(val > 0)
+	{
+		if(!_signalOld)
+		{
+			_millSecFirstHit = millis();
+		}
+		
+	    if((_millSecLastStamp - _millSecFirstHit) > _millSecActivateHolding)
+		{
+			_selfHoldingActive = true;
+			_signal = true;
+		}
+		
+		_signalOld = true;			
+	    return true;
+	}
+	else
+	{
+		_signalOld = false;
+	}
+	
 	return _signal;
+}
+
+int ShutterButton::GetActualSignal()
+{
+	_mux.channel(GetChannel());
+	int tmp = analogRead(_pinIn);	
+	return tmp;
 }
 
 bool ShutterButton::GetChannel()
@@ -50,4 +83,5 @@ void ShutterButton::Release()
 {
 	_selfHoldingActive = false;
 	_signal = false;
+		_signalOld = false;
 }
